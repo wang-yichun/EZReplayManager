@@ -13,7 +13,7 @@ using ProtoBuf;
  */
 //[Serializable ()]
 [ProtoContract]
-public class Object2PropertiesMapping : ISerializable
+public class Object2PropertiesMapping// : ISerializable
 {
 
 	//saved states belonging to one game object
@@ -390,18 +390,18 @@ public class Object2PropertiesMapping : ISerializable
 	/*[SecurityPermissionAttribute(
 	            SecurityAction.Demand,
 	            SerializationFormatter = true)]	*/
-//	public void GetObjectData (SerializationInfo info, StreamingContext ctxt)
-//	{
-//		info.AddValue ("savedStates", this.savedStates);
-//		info.AddValue ("isParentObj", this.isParentObj);
-//		info.AddValue ("parentMapping", this.parentMapping);
-//		info.AddValue ("childNo", this.childNo);
-//		info.AddValue ("prefabLoadPath", this.prefabLoadPath);
-//		info.AddValue ("lastChangedFrame", this.lastChangedFrame);
-//		info.AddValue ("firstChangedFrame", this.firstChangedFrame);
-//		info.AddValue ("gameObjectName", this.gameObjectName);
-//		info.AddValue ("childIdentificationMode", this.childIdentificationMode);
-//		//base.GetObjectData(info, context);
-//	}
+	//	public void GetObjectData (SerializationInfo info, StreamingContext ctxt)
+	//	{
+	//		info.AddValue ("savedStates", this.savedStates);
+	//		info.AddValue ("isParentObj", this.isParentObj);
+	//		info.AddValue ("parentMapping", this.parentMapping);
+	//		info.AddValue ("childNo", this.childNo);
+	//		info.AddValue ("prefabLoadPath", this.prefabLoadPath);
+	//		info.AddValue ("lastChangedFrame", this.lastChangedFrame);
+	//		info.AddValue ("firstChangedFrame", this.firstChangedFrame);
+	//		info.AddValue ("gameObjectName", this.gameObjectName);
+	//		info.AddValue ("childIdentificationMode", this.childIdentificationMode);
+	//		//base.GetObjectData(info, context);
+	//	}
 	
 }
