@@ -18,7 +18,7 @@ public class Object2PropertiesMapping// : ISerializable
 
 	//saved states belonging to one game object
 	//	public SerializableDictionary<int,SavedState> savedStates = new SerializableDictionary<int,SavedState> ();
-	[ProtoMember (0)]
+	[ProtoMember (1)]
 	public Dictionary<int,SavedState> savedStates = new Dictionary<int, SavedState> ();
 	//	public Dictionary<int,SavedState> savedStates = new Dictionary<int,SavedState>();
 	//the game object this mapping class object is being created for
@@ -26,32 +26,37 @@ public class Object2PropertiesMapping// : ISerializable
 	//the clone belonging to the gameObject
 	protected GameObject gameObjectClone;
 	//is it a parent game object?
-	[ProtoMember (1)]
+	[ProtoMember (2)]
 	public bool isParentObj = false;
 	//mapping of parent game object
-	[ProtoMember (2)]
+	[ProtoMember (3)]
 	protected Object2PropertiesMapping parentMapping;
 	//child no. parents have 0
-	[ProtoMember (3)]
+	[ProtoMember (4)]
 	public int childNo;
 	//prefab load path (for saving recordings)
-	[ProtoMember (4)]
+	[ProtoMember (5)]
 	protected string prefabLoadPath = "";
 	//last frame where changes where recognized
-	[ProtoMember (5)]
+	[ProtoMember (6)]
 	protected int lastChangedFrame = -1;
 	//first frame where changes where recognized
-	[ProtoMember (6)]
+	[ProtoMember (7)]
 	protected int firstChangedFrame = -1;
 	//InstanceID of original gameObject
+	[ProtoIgnore]
 	protected int gameObjectInstanceID = -1;
 	//name of original gameObject
-	[ProtoMember (8)]
+	[ProtoMember (9)]
 	protected string gameObjectName = "name_untraceable";
 	//way of identifying children of gameobjects in game scene hierarchy
-	[ProtoMember (7)]
+	[ProtoMember (8)]
 	protected ChildIdentificationMode childIdentificationMode = ChildIdentificationMode.IDENTIFY_BY_ORDER;
-	
+
+	public Object2PropertiesMapping ()
+	{
+	}
+
 	//serialization constructor
 	//	protected Object2PropertiesMapping (SerializationInfo info, StreamingContext context)
 	//	{
@@ -174,7 +179,7 @@ public class Object2PropertiesMapping// : ISerializable
 			gameObjectClone.transform.parent = superParent.transform;
 		
 		} else { // if is a child (can also be a parent in game scene hierachy but "EZReplayManager.mark4recording()" has not been called for this object specifically, so we handle it as a child
-			
+
 			GameObject myParentClone = parentMapping.getGameObjectClone ();
 			Transform[] allChildren = myParentClone.GetComponentsInChildren<Transform> (true);
 			

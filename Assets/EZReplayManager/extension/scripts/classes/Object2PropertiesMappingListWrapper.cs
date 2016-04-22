@@ -9,11 +9,11 @@ using ProtoBuf;
 [ProtoContract]
 public class Object2PropertiesMappingListWrapper// : ISerializable {
 {
-	[ProtoMember (0)]
-	public List<Object2PropertiesMapping> object2PropertiesMappings = new List<Object2PropertiesMapping> ();
 	[ProtoMember (1)]
-	public string EZR_VERSION = EZReplayManager.EZR_VERSION;
+	public List<Object2PropertiesMapping> object2PropertiesMappings = new List<Object2PropertiesMapping> ();
 	[ProtoMember (2)]
+	public string EZR_VERSION = EZReplayManager.EZR_VERSION;
+	[ProtoMember (3)]
 	public float recordingInterval;
 
 	//serialization constructor

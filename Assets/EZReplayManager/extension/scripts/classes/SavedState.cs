@@ -21,20 +21,24 @@ public class SavedState// : ISerializable
 	//	public SerQuaternion rotation;
 	//	public SerQuaternion localRotation;
 
-	[ProtoMember (0)]
-	public PBVector3 position;
 	[ProtoMember (1)]
-	public PBVector3 localPosition;
+	public PBVector3 position;
 	[ProtoMember (2)]
-	public PBQuaternion3 rotation;
+	public PBVector3 localPosition;
 	[ProtoMember (3)]
+	public PBQuaternion3 rotation;
+	[ProtoMember (4)]
 	public PBQuaternion3 localRotation;
 
-	[ProtoMember (4)]
-	public bool emittingParticles = false;
 	[ProtoMember (5)]
+	public bool emittingParticles = false;
+	[ProtoMember (6)]
 	public bool isActive = false;
-	
+
+	public SavedState ()
+	{
+	}
+
 	//serialization constructor
 	//	protected SavedState (SerializationInfo info, StreamingContext context)
 	//	{

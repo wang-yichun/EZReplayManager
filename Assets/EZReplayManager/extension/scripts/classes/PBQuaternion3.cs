@@ -16,25 +16,25 @@ public class PBQuaternion3
 		quaternion = source;
 	}
 
-	[ProtoMember (1, Name = "x")]
+	[ProtoMember (1, Name = "qx")]
 	public float x {
 		get { return quaternion.x; }
 		set { quaternion.x = value; }
 	}
 
-	[ProtoMember (2, Name = "y")]
+	[ProtoMember (2, Name = "qy")]
 	public float y {
 		get { return quaternion.y; }
 		set { quaternion.y = value; }
 	}
 
-	[ProtoMember (3, Name = "z")]
+	[ProtoMember (3, Name = "qz")]
 	public float z {
 		get { return quaternion.z; }
 		set { quaternion.z = value; }
 	}
 
-	[ProtoMember (4, Name = "w")]
+	[ProtoMember (4, Name = "qw")]
 	public float w {
 		get { return quaternion.w; }
 		set { quaternion.w = value; }
