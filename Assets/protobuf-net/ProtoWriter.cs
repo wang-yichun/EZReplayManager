@@ -1,4 +1,7 @@
-﻿using System;
+﻿// ETHAN:
+#define FEAT_SAFE
+
+using System;
 
 using System.IO;
 using System.Text;

@@ -46,4 +46,33 @@ public class Object2PropertiesMappingListWrapper// : ISerializable {
 	//		info.AddValue ("recordingInterval", this.recordingInterval);
 	//		//base.GetObjectData(info, context);
 	//	}
+
+	public void CalcParentMapingIdx ()
+	{
+		for (int i = 0; i < object2PropertiesMappings.Count; i++) {
+			Object2PropertiesMapping mapping = object2PropertiesMappings [i];
+			mapping.currentMappingIdx = i;
+		}
+		for (int i = 0; i < object2PropertiesMappings.Count; i++) {
+			Object2PropertiesMapping mapping = object2PropertiesMappings [i];
+			if (mapping.parentMapping != null) {
+				mapping.parentMappingIdx = mapping.parentMapping.currentMappingIdx;
+			} else {
+				mapping.parentMappingIdx = -1;
+			}
+		}
+	}
+
+	public void CalcParentMapingRef ()
+	{
+		for (int i = 0; i < object2PropertiesMappings.Count; i++) {
+			Object2PropertiesMapping mapping = object2PropertiesMappings [i];
+			mapping.currentMappingIdx = i;
+			if (mapping.parentMappingIdx != -1) {
+				mapping.parentMapping = object2PropertiesMappings [mapping.parentMappingIdx];
+			} else {
+				mapping.parentMapping = null;
+			}
+		}
+	}
 }

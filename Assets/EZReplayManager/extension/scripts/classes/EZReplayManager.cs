@@ -172,6 +172,8 @@ public class EZReplayManager : MonoBehaviour
 //		BinaryFormatter bFormatter = new BinaryFormatter();
 //      bFormatter.Serialize(memStream, objectToSerialize);
 
+		objectToSerialize.CalcParentMapingIdx ();
+
 		ProtoBuf.Serializer.Serialize<Object2PropertiesMappingListWrapper> (memStream, objectToSerialize);
 
 		if (compressSaves) {
@@ -186,14 +188,16 @@ public class EZReplayManager : MonoBehaviour
 	{
 		Object2PropertiesMappingListWrapper objectToSerialize = null;
         
-		try {
-			data = CLZF2.Decompress (data);
-		} catch (OutOfMemoryException meme) {
-			if (showWarnings)
-				Debug.LogWarning ("EZReplayManager WARNING: Decompressing was unsuccessful. Trying without decompression.");
-		} catch (OverflowException ofe) {
-			if (showWarnings)
-				Debug.LogWarning ("EZReplayManager WARNING: Decompressing was unsuccessful. Trying without decompression.");									
+		if (compressSaves) {
+			try {
+				data = CLZF2.Decompress (data);
+			} catch (OutOfMemoryException meme) {
+				if (showWarnings)
+					Debug.LogWarning ("EZReplayManager WARNING: Decompressing was unsuccessful. Trying without decompression.");
+			} catch (OverflowException ofe) {
+				if (showWarnings)
+					Debug.LogWarning ("EZReplayManager WARNING: Decompressing was unsuccessful. Trying without decompression.");									
+			}
 		}
 		MemoryStream stream = new MemoryStream (data);
 
@@ -201,6 +205,7 @@ public class EZReplayManager : MonoBehaviour
 //		objectToSerialize = (Object2PropertiesMappingListWrapper)bFormatter.Deserialize (stream);
 
 		objectToSerialize = ProtoBuf.Serializer.Deserialize<Object2PropertiesMappingListWrapper> (stream);
+		objectToSerialize.CalcParentMapingRef ();
 
 		//print("System.GC.GetTotalMemory(): "+System.GC.GetTotalMemory(false));        
 
@@ -326,7 +331,7 @@ public class EZReplayManager : MonoBehaviour
 		currentMode = ViewMode.REPLAY;
 
 		//switchModeTo(ViewMode.REPLAY); //happens in play:
-		play (0);
+//		play (0);
 	}
 	#endif
 
@@ -735,8 +740,9 @@ public class EZReplayManager : MonoBehaviour
 						//lerping not integrated yet
 						//float updateSyncTime = Time.realtimeSinceStartup;
 						//float lerpInterval = interval - ((updateSyncTime - updateStartingTime) % interval) ;
-						if (propMapping.getGameObjectClone () != null)
+						if (propMapping.getGameObjectClone () != null) {
 							propMapping.synchronizeProperties (recorderPosition);
+						}
 
 					} else { //else if reached the finishing position
 						stop ();

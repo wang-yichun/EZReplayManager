@@ -22,15 +22,21 @@ public class Object2PropertiesMapping// : ISerializable
 	public Dictionary<int,SavedState> savedStates = new Dictionary<int, SavedState> ();
 	//	public Dictionary<int,SavedState> savedStates = new Dictionary<int,SavedState>();
 	//the game object this mapping class object is being created for
+	[ProtoIgnore]
 	protected GameObject gameObject;
 	//the clone belonging to the gameObject
+	[ProtoIgnore]
 	protected GameObject gameObjectClone;
 	//is it a parent game object?
 	[ProtoMember (2)]
 	public bool isParentObj = false;
 	//mapping of parent game object
+	[ProtoIgnore]
+	public int currentMappingIdx;
 	[ProtoMember (3)]
-	protected Object2PropertiesMapping parentMapping;
+	public int parentMappingIdx;
+	[ProtoIgnore]
+	public Object2PropertiesMapping parentMapping;
 	//child no. parents have 0
 	[ProtoMember (4)]
 	public int childNo;
@@ -39,10 +45,10 @@ public class Object2PropertiesMapping// : ISerializable
 	protected string prefabLoadPath = "";
 	//last frame where changes where recognized
 	[ProtoMember (6)]
-	protected int lastChangedFrame = -1;
+	protected int lastChangedFrame;
 	//first frame where changes where recognized
 	[ProtoMember (7)]
-	protected int firstChangedFrame = -1;
+	protected int firstChangedFrame;
 	//InstanceID of original gameObject
 	[ProtoIgnore]
 	protected int gameObjectInstanceID = -1;
@@ -52,6 +58,12 @@ public class Object2PropertiesMapping// : ISerializable
 	//way of identifying children of gameobjects in game scene hierarchy
 	[ProtoMember (8)]
 	protected ChildIdentificationMode childIdentificationMode = ChildIdentificationMode.IDENTIFY_BY_ORDER;
+
+	public void Init ()
+	{
+		lastChangedFrame = -1;
+		firstChangedFrame = -1;
+	}
 
 	public Object2PropertiesMapping ()
 	{
@@ -84,6 +96,8 @@ public class Object2PropertiesMapping// : ISerializable
 
 	public Object2PropertiesMapping (GameObject go, bool isParent, Object2PropertiesMapping parentMapping, int childNo, string prefabLoadPath, ChildIdentificationMode childIdentificationMode) : this (go, isParent, parentMapping, childNo, prefabLoadPath)
 	{
+		Init ();
+
 		this.childIdentificationMode = childIdentificationMode;
 		
 		if (isParentObj) { // if gameObject is a parent..
@@ -106,12 +120,14 @@ public class Object2PropertiesMapping// : ISerializable
 
 	public Object2PropertiesMapping (GameObject go, bool isParent, Object2PropertiesMapping parentMapping, int childNo, string prefabLoadPath) : this (go, isParent, parentMapping, childNo)
 	{
+		Init ();
 		this.prefabLoadPath = prefabLoadPath;
 	}
 	
 	//as this is not derived from MonoBehaviour, we have a constructor
 	public Object2PropertiesMapping (GameObject go, bool isParent, Object2PropertiesMapping parentMapping, int childNo)
 	{
+		Init ();
 		//setting instance variables
 		this.gameObject = go;
 		this.isParentObj = isParent;		
